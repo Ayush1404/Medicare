@@ -1,14 +1,36 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '../redux/alertSlice';
+
 
 const Login = () => {
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
   const onFinish = async (values:{email: string,password:string})=>{
     try{
-      const responce = await axios.post('http://localhost:7000/api/user/login',values);
-      console.log(responce);
-    }catch(err){
+      dispatch(showLoading())
+      const response = await axios.post('http://localhost:7000/api/user/login',values);
+      dispatch(hideLoading())
+      console.log(response);
+      if(response.data.success)
+      {
+        toast.success(response.data.message)
+        localStorage.setItem('authToken', response.data.authToken);
+        navigate('/protectedhome')
+      }
+      else 
+      {
+        console.log(response.data.message)
+        toast.error(response.data.message)
+      }
+    }catch(err:any){
+      dispatch(hideLoading())
+      if(err.response.data.message)toast.error(err.response.data.message)
+      else toast.error("Something went wrong!")
       console.log(err)
     }
   }
@@ -24,7 +46,7 @@ const Login = () => {
             <Input.Password placeholder='Password' />
           </Form.Item>
           <Button className='primary-button mt-3' htmlType='submit' >
-            Login
+            LOG IN
           </Button>
           <div style={{ fontSize:'16px' ,textAlign: 'center', marginTop: '10px' }}>
             <span>Don't have an account?</span>{' '}

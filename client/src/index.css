@@ -1,12 +1,36 @@
 /* common styling */
+
+.spinner-parent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* opacity: 0.5; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    background-color: #F5F5F5;
+}
+.spinner-border{
+    width: 3rem ;
+    height: 3rem;
+}
 .card{
  background-color: 'white'; 
  border-radius: '8px'; 
- box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+ box-shadow: 0 2px 6px grey(0, 0, 0, 0.1);
 }
+
 .card-title{
     color: #0072B5;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.page-title{
+    font-size: 1.6rem;
+    color: #0072B5;
     font-weight: bold;
 }
 .normal-text{
@@ -21,8 +45,16 @@
     color: white;
     font-size: 16px;
 }
+
+.primary-button.apply-doctor-button{
+    width: max-content;
+}
 .primary-button:hover {
-    background-color: #005688 !important; 
+    background-color: #0072B5 !important; 
+}
+
+.medicare-logo{
+    color: white;
 }
 
 /* antd overriding */
@@ -31,7 +63,7 @@ input{
     margin: 0;
     height: 40px;
 }
-input:focus{
+input:focus .ant-picker{
     border-color: #0072B5 !important;
     outline: none  !important;
     box-shadow: none  !important;
@@ -39,7 +71,7 @@ input:focus{
 
 label{
     font-size: 16px !important;
-    color: #001F3F !important;
+    color: #0072B5  !important;
 } 
 
 .ant-form-item{
@@ -53,34 +85,11 @@ label{
     margin: 0;
 }
 
-/* Custom styling for the home page */
-.jumbotron {
-    background-color: #0072B5; /* Primary color for the jumbotron background */
-    color: white;
-    padding: 60px;
-  }
-  
-  .jumbotron h1 {
-    font-size: 36px;
-  }
-  
-  .jumbotron p {
-    font-size: 18px;
-  }
-  
-  /* Custom styling for the "Get Started" button */
-  .btn-primary {
-    background-color: #FF5A5F; /* Accent color for the button */
-    border-color: #FF5A5F;
-    font-weight: bold;
-  }
-  
-  /* Custom styling for the "Why Choose Us?" section */
-  h2 {
-    margin-top: 40px;
-    font-size: 28px;
-  }
-
+.ant-picker{
+    border-radius: 5px !important;
+    margin: 0;
+    height: 40px;
+}
   
 /* authentication pages */
 .authentication{
@@ -93,3 +102,9 @@ label{
 .authentication-form{
     width: 400px;
 }
+
+
+/* 
+colors:
+#0072B5
+#001F3F */
