@@ -1,8 +1,9 @@
 import { BrowserRouter, Route , Routes } from "react-router-dom";
 import React from 'react';
-import { ApplyDoctor, Home, Login, Logout, ProtectedHome, ProtectedRoute, Register } from "./components";
+import { Notifications,ApplyDoctor, Home, Login, Logout, ProtectedHome, ProtectedRoute, Register } from "./components";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
+
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/register" element={<Register/>}></Route>
           <Route path="/protectedhome" element={<ProtectedRoute ><ProtectedHome/></ProtectedRoute>} />
           <Route path="/applydoctor" element={<ProtectedRoute ><ApplyDoctor/></ProtectedRoute>} />
+          <Route path="/notifications" element={<ProtectedRoute ><Notifications/></ProtectedRoute>} />
           <Route path="/logout" element={<Logout/>}></Route>
         </Routes>
       </BrowserRouter>

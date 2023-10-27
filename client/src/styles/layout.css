@@ -59,6 +59,12 @@
     margin-top: 30px;
 }
 
+.menu-item:hover{
+    background-color: #005b90;
+    padding: 2px;
+    border-radius: 5px;
+}
+
 .menu-item a{
    color: hsla(0, 0%, 100%, 0.7);
    text-decoration: none;
@@ -72,9 +78,11 @@
     margin: 0px 15px;
 }
 
-.active-menu-item{
+
+
+.active-menu-item {
     background-color: #005b90;
-    padding: 5px;
+    padding: 2px;
     border-radius: 5px;
 }
 .active-menu-item i{
@@ -131,7 +139,7 @@
 }
 
 .username{
-    padding-top: 15px;
+    padding-top: 7px;
     color:white; 
     margin-right:12px ;
     font-size: 15px;
@@ -139,4 +147,30 @@
     text-decoration: underline;
 }
 
-
+.notification-global-buttons{
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: underline;
+    color:black; 
+    cursor: pointer;
+}
+.notification-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: 'white'; 
+    border: 1px solid rgba(128, 128, 128, 0.331);
+    border-radius: '8px'; 
+    box-shadow: 0 2px 6px grey(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+}
+.notification-message,.notification-mark-read,.notification-delete{
+    cursor: pointer;
+}
+/*antd overriding*/
+.ant-badge{
+    margin-top: 5px;
+}
+.ant-badge-count{
+    margin-right: 12px;
+}

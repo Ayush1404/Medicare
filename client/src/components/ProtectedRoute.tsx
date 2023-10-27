@@ -35,6 +35,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
               email: response.data.data.email,
               isAdmin: response.data.data.isAdmin, 
               isDoctor: response.data.data.isDoctor,
+              notificationCount : response.data.data.notificationCount,
             }));
         }
         else 

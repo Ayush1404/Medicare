@@ -6,7 +6,7 @@ import {router as userRouter} from './routes/userRoutes'  ;
 const app = express();
 const port = process.env.PORT || 7000 ;
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
 
 app.use('/api/user',userRouter)

@@ -16,20 +16,20 @@ const Login = () => {
       const response = await axios.post('http://localhost:7000/api/user/login',values);
       dispatch(hideLoading())
       console.log(response);
-      if(response.data.success)
+      if(response?.data.success)
       {
-        toast.success(response.data.message)
-        localStorage.setItem('authToken', response.data.authToken);
+        toast.success(response?.data.message)
+        localStorage.setItem('authToken', response?.data.authToken);
         navigate('/protectedhome')
       }
       else 
       {
-        console.log(response.data.message)
-        toast.error(response.data.message)
+        console.log(response?.data.message)
+        toast.error(response?.data.message)
       }
     }catch(err:any){
       dispatch(hideLoading())
-      if(err.response.data.message)toast.error(err.response.data.message)
+      if(err.response?.data.message)toast.error(err.response?.data.message)
       else toast.error("Something went wrong!")
       console.log(err)
     }

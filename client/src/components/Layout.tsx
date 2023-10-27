@@ -3,6 +3,7 @@ import '../styles/layout.css'
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { adminMenu, doctorMenu, userMenu } from '../constants/Role menus';
+import { Badge } from 'antd';
 
 
 type LayoutProps = {
@@ -40,9 +41,11 @@ const Layout = ({children}:LayoutProps) => {
            {!collapsed &&<i className="ri-close-fill close-icon" onClick={()=>{setCollapsed(true)}}></i>}
            {collapsed &&<i className="ri-menu-fill hamburger-icon" onClick={()=>{setCollapsed(false)}}></i>}
            <div className='d-flex align-items-centre'>
-            <Link to='notification' className='notification-icon'>
-              <i className="ri-notification-3-fill "></i>
+           <Badge count={userData.notificationCount} >
+            <Link to='/notifications' className='notification-icon'>
+                <i className="ri-notification-3-fill"></i>
             </Link>
+           </Badge>
             {!mobile && <Link to='/profile' className='username'>{userData.name}</Link> }
             {mobile && <Link to='/profile'> <i className="ri-user-fill profile-icon"></i></Link>}
            </div>

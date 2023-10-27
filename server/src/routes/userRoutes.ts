@@ -71,6 +71,7 @@ router.get('/me', authenticatejwt , async (req:Request , res: Response)=>{
                     email:user.email,
                     isAdmin:user.isAdmin,
                     isDoctor:user.isDoctor,
+                    notificationCount:user.unseenNotifications.length
                 }
             })
         }
@@ -113,6 +114,146 @@ router.post('/applydoctor', authenticatejwt , async (req:Request , res: Response
     catch(err){
         console.log(err)
         return res.status(500).send({message: "Internal server error" , success:false});
+    }
+})
+
+router.get('/notifications',authenticatejwt,async (req:Request,res:Response)=>{
+    try {
+        const user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        else
+        {
+            return res.status(200).send(
+            {
+                success:true,
+                data:
+                {
+                    unseenNotifications:user.unseenNotifications,
+                    seenNotifications:user.seenNotifications
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({success:false,message:"Error getting user" ,error})
+    }
+})
+
+router.get('/notifications/markallread',authenticatejwt,async (req:Request,res:Response)=>{
+    try {
+        let user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        else
+        {
+            let unseenNotifications=user.unseenNotifications;
+            let seenNotifications=user.seenNotifications;
+            seenNotifications=[...unseenNotifications,...seenNotifications]
+            unseenNotifications=[]
+            await userModel.findByIdAndUpdate(user._id , {unseenNotifications:unseenNotifications})
+            await userModel.findByIdAndUpdate(user._id , {seenNotifications:seenNotifications})
+            user = await userModel.findOne({_id:req.headers.id})
+            return res.status(200).send(
+            {
+                success:true,
+                message:"Marked all as read",
+                data:
+                {
+                    unseenNotifications:user!.unseenNotifications,
+                    seenNotifications:user!.seenNotifications
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({success:false,message:"Internal Server Error" ,error})
+    }
+})
+
+router.post('/notifications/markoneread',authenticatejwt,async (req:Request,res:Response)=>{
+    try {
+        let user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        else
+        {
+            
+            const notification_message = req.body.notification_message;
+            let unseenNotifications=user.unseenNotifications;
+            
+            let _notification = unseenNotifications.find((notification)=>{return notification.message === notification_message})
+            
+            unseenNotifications=unseenNotifications.filter((notification)=>{return notification.message!==notification_message})
+            let seenNotifications=user.seenNotifications;
+            if(_notification?.message)seenNotifications=[_notification,...seenNotifications]
+            await userModel.findByIdAndUpdate(user._id , {unseenNotifications:unseenNotifications})
+            await userModel.findByIdAndUpdate(user._id , {seenNotifications:seenNotifications})
+            user = await userModel.findOne({_id:req.headers.id})
+            return res.status(200).send(
+            {
+                success:true,
+                message:"Marked as read",
+                data:
+                {
+                    unseenNotifications:user!.unseenNotifications,
+                    seenNotifications:user!.seenNotifications
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({success:false,message:"Internal Server Error" ,error})
+    }
+})
+
+router.get('/notifications/deleteall',authenticatejwt,async (req:Request,res:Response)=>{
+    try {
+        let user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        else
+        {
+            await userModel.findByIdAndUpdate(user._id , {seenNotifications:[]})
+            user = await userModel.findOne({_id:req.headers.id})
+            return res.status(200).send(
+            {
+                success:true,
+                message:"Successfully deleted all",
+                data:
+                {
+                    seenNotifications:user!.seenNotifications
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({success:false,message:"Internal Server Error" ,error})
+    }
+})
+
+router.post('/notifications/deleteone',authenticatejwt,async (req:Request,res:Response)=>{
+    try {
+        let user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        else
+        {
+            const notification_message = req.body.notification_message;
+            let seenNotifications=user.seenNotifications;
+            seenNotifications= seenNotifications.filter((notification)=>{
+                return notification.message !== notification_message
+            })
+            await userModel.findByIdAndUpdate(user._id , {seenNotifications:seenNotifications})
+            user = await userModel.findOne({_id:req.headers.id})
+            return res.status(200).send(
+            {
+                success:true,
+                message:"Successfully deleted",
+                data:
+                {
+                    seenNotifications:user!.seenNotifications
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({success:false,message:"Internal Server Error" ,error})
     }
 })
 export  {router};
