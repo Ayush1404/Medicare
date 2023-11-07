@@ -1,4 +1,4 @@
-import mongoose, { ObjectId, mongo } from 'mongoose';
+import mongoose from 'mongoose';
 const joi = require('joi');
 const doctorSchema =new mongoose.Schema({
     userid:{
@@ -51,7 +51,7 @@ const doctorSchema =new mongoose.Schema({
     },
     status:{
         type:String,
-        default:'pending',
+        default:'Pending',
     }
 },{
     timestamps:true
@@ -64,7 +64,7 @@ export const applyDoctorValidate=(data:{})=>{
         firstName: joi.string().min(2).max(15).required(),
         lastName: joi.string().min(2).max(15).required(),
         phoneNumber: joi.string().min(10).max(15).regex(/^\d+$/).required(),
-        website: joi.string().max(50).required(),
+        website: joi.string().max(50),
         address: joi.string().max(200).required(),
         specialization: joi.string().required(),
         experience: joi.number().required(),

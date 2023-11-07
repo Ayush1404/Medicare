@@ -1,42 +1,42 @@
-import { Button, Col, Form, Input, Row, TimePicker } from 'antd'
 import Layout from './Layout'
-import React from 'react'
-import { hideLoading, showLoading } from '../redux/alertSlice'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import toast from 'react-hot-toast'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Button, Col, Form, Input, Row, TimePicker } from 'antd'
+import { hideLoading, showLoading } from '../redux/alertSlice';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 type ApplyDoctorInput={
-    userid:String,
-    firstName:String
-    lastName:String
-    phoneNumber:String
-    website:String
-    address:String
-    specialization:String
-    experience:Number,
-    feePerConsultation:Number,
-    timings:any
+  userid:String,
+  firstName:String
+  lastName:String
+  phoneNumber:String
+  website:String
+  address:String
+  specialization:String
+  experience:Number,
+  feePerConsultation:Number,
+  timings:any
 }
-const ApplyDoctor = () => {
-    const userData = useSelector((state: any) => state.userData);
-    const dispatch = useDispatch();
+const DoctorProfile = () => {
+  const dispatch = useDispatch();
+  const doctorData = useSelector((state: any) => state.doctorData);
+  console.log(doctorData)
     const navigate = useNavigate()
+    
     const onFinish =async (values:ApplyDoctorInput)=>{
         try{
+            console.log(values)
             const formated_timings =[ 
                 values.timings[0].format("HH:mm"),
                 values.timings[1].format("HH:mm"),
             ]
             values ={...values , timings:formated_timings}
-            values.userid=userData.id; 
-            console.log(values)
             dispatch(showLoading())
             const token = localStorage.getItem('authToken');
-            const response = await axios.post('http://localhost:7000/api/user/applydoctor',values, {
+            const response = await axios.post('http://localhost:7000/api/doctor/updateprofile',values, {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                 },
@@ -57,16 +57,15 @@ const ApplyDoctor = () => {
             else toast.error("Something went wrong!")
             console.log(err)
           }
-        
     }
+    
   return (
-    <div>
-        <Layout>
-            <h2 className='page-title'>
-                Apply doctor
-            </h2>
-            <hr></hr>
-            <Form layout='vertical' onFinish={onFinish}>
+    <Layout>
+        <h1 className="page-title">
+            Doctor Profile
+        </h1>
+        <hr></hr>
+            <Form layout='vertical' initialValues={doctorData} onFinish={onFinish}>
                 <h2 className="card-title">Personal information</h2>
                 <Row gutter={20}>
                     <Col span={8} xs={24} sm={24} lg={8}>
@@ -122,14 +121,13 @@ const ApplyDoctor = () => {
 
                 <div className="d-flex justify-content-end">
                     <Button htmlType='submit' className='primary-button apply-doctor-button' >
-                        SUBMIT
+                        Update
                     </Button>
                 </div>
 
             </Form>
-        </Layout>
-    </div>
+    </Layout>
   )
 }
 
-export default ApplyDoctor
+export default DoctorProfile

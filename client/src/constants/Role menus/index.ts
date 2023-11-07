@@ -1,5 +1,5 @@
 import userMenu from "./userMenu";
 import adminMenu from "./adminMenu";
-import doctorMenu from "./doctorMenu";
+import createDoctorMenu from "./doctorMenu";
 
-export{userMenu,doctorMenu,adminMenu}
+export{userMenu,createDoctorMenu,adminMenu}

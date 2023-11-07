@@ -6,4 +6,10 @@ import ProtectedRoute from "./ProtectedRoute";
 import Logout from "./Logout";
 import ApplyDoctor from "./ApplyDoctor";
 import Notifications from "./Notifications";
-export {Login,Register,Home,ProtectedHome,ProtectedRoute,Logout,ApplyDoctor,Notifications}
+import AdminUsers from "./AdminUsers";
+import AdminDoctors from "./AdminDoctors";
+import DoctorProfile from "./DoctorProfile";
+import DoctorBooking from "./DoctorBooking";
+import DoctorAppointments from "./DoctorApoointments";
+import DoctorDeails from "./DoctorDetails";
+export {Login,Register,Home,ProtectedHome,ProtectedRoute,Logout,ApplyDoctor,Notifications,AdminUsers,AdminDoctors,DoctorProfile,DoctorBooking,DoctorAppointments,DoctorDeails}

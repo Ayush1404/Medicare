@@ -4,6 +4,8 @@ import { userModel, loginValidate, registerValidate, generateAuthToken } from '.
 import bcrypt from 'bcrypt';
 import { authenticatejwt } from './authMiddleWare';
 import { applyDoctorValidate, doctorModel } from '../models/doctorModel';
+import { appointmentModel } from '../models/appointmentModel';
+import moment from 'moment';
 
 router.post('/register',async (req:Request,res:Response)=>{
     try {
@@ -59,6 +61,7 @@ router.get('/me', authenticatejwt , async (req:Request , res: Response)=>{
     try {
         const user = await userModel.findOne({_id:req.headers.id})
         if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
         else
         {
             return res.status(200).send(
@@ -71,6 +74,7 @@ router.get('/me', authenticatejwt , async (req:Request , res: Response)=>{
                     email:user.email,
                     isAdmin:user.isAdmin,
                     isDoctor:user.isDoctor,
+                    status:user.status,
                     notificationCount:user.unseenNotifications.length
                 }
             })
@@ -85,15 +89,19 @@ router.post('/applydoctor', authenticatejwt , async (req:Request , res: Response
     try {
         
         const {error} =applyDoctorValidate(req.body);
+        
         if(error)
             return res.status(400).send({message: error.details[0].message , success:false} );
+        const user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
         let newDoctor = await doctorModel.findOne({userid:req.body.userid})
         if(newDoctor)
         {
-            if(newDoctor.status === 'pending') return res.status(409).send({message: "Your request is already made" , success:false})
+            if(newDoctor.status === 'Pending') return res.status(409).send({message: "Your request is already made" , success:false})
             else return res.status(409).send({message: "You are already registered as doctor" , success:false}) 
         }
-        newDoctor = new doctorModel({...req.body,status:'pending'})
+        newDoctor = new doctorModel({...req.body})
         
         const userAdmin = await userModel.findOne({isAdmin:true})
         if(!userAdmin)return res.status(500).send({message: "Error finding admin" , success:false});
@@ -121,6 +129,7 @@ router.get('/notifications',authenticatejwt,async (req:Request,res:Response)=>{
     try {
         const user = await userModel.findOne({_id:req.headers.id})
         if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
         else
         {
             return res.status(200).send(
@@ -143,6 +152,7 @@ router.get('/notifications/markallread',authenticatejwt,async (req:Request,res:R
     try {
         let user = await userModel.findOne({_id:req.headers.id})
         if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
         else
         {
             let unseenNotifications=user.unseenNotifications;
@@ -173,6 +183,7 @@ router.post('/notifications/markoneread',authenticatejwt,async (req:Request,res:
     try {
         let user = await userModel.findOne({_id:req.headers.id})
         if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
         else
         {
             
@@ -208,6 +219,7 @@ router.get('/notifications/deleteall',authenticatejwt,async (req:Request,res:Res
     try {
         let user = await userModel.findOne({_id:req.headers.id})
         if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
         else
         {
             await userModel.findByIdAndUpdate(user._id , {seenNotifications:[]})
@@ -232,6 +244,7 @@ router.post('/notifications/deleteone',authenticatejwt,async (req:Request,res:Re
     try {
         let user = await userModel.findOne({_id:req.headers.id})
         if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
         else
         {
             const notification_message = req.body.notification_message;
@@ -250,6 +263,94 @@ router.post('/notifications/deleteone',authenticatejwt,async (req:Request,res:Re
                     seenNotifications:user!.seenNotifications
                 }
             })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({success:false,message:"Internal Server Error" ,error})
+    }
+})
+
+
+router.get('/getallapproveddoctors', authenticatejwt , async (req:Request , res: Response)=>{
+    try {
+        let user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
+        else
+        {   
+            const approvedDoctors = await doctorModel.find({status:"Approved"});
+            return res.status(200).send(
+            {
+                success:true,
+                data:
+                {
+                    approvedDoctors:approvedDoctors,
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({success:false,message:"Eroor getting doctors" ,error})
+    }
+})
+
+
+router.get('/getallappointments', authenticatejwt , async (req:Request , res: Response)=>{
+    try {
+        let user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
+        else
+        {   
+            const currentDate = moment().format("DD-MM-YYYY");
+            const appointments = await appointmentModel.find({userid:user._id , date:{$gte:currentDate} });
+            return res.status(200).send(
+            {
+                success:true,
+                data:
+                {
+                    appointments:appointments,
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({success:false,message:"Eroor getting appointments" ,error})
+    }
+})
+
+router.post('/cancelappointment',authenticatejwt,async (req:Request,res:Response)=>{
+    try {
+        let user = await userModel.findOne({_id:req.headers.id})
+        if(!user) return res.status(400).send({message:"User does not exist", success:false})
+        if(user.status==='Blocked') return res.status(400).send({message:"User is blocked", success:false})
+        else
+        {
+            const appointment_id = req.body.appointment_id;
+            const appointment = await appointmentModel.findById(appointment_id);
+            if(!appointment) return res.status(400).send({message:"Appoitnment does not exist", success:false})
+            await appointmentModel.findByIdAndDelete(appointment_id);
+            const doctoruserid = appointment.doctorInfo.userid;
+            const doctoruser = await userModel.findById(doctoruserid);
+            if(!doctoruser) return res.status(400).send({message:"doctor user account does not exist", success:false})
+            let unseenNotifications = doctoruser.unseenNotifications;
+            unseenNotifications=[{
+                type: "appointment-request-approved",
+                message: `${appointment.userInfo.name} has canceled appointment`,
+                data: {},
+                "onClickPath": "/protectedhome"
+            },...unseenNotifications]
+            await userModel.findByIdAndUpdate(doctoruserid,{unseenNotifications:unseenNotifications})
+            const appointments = await appointmentModel.find({userid:appointment.userid});
+            return res.status(200).send(
+                {
+                    success:true,
+                    message:"Appointment canceled successfully",
+                    data:
+                    {
+                        appointments:appointments,
+                    }
+                })
         }
     } catch (error) {
         console.log(error)

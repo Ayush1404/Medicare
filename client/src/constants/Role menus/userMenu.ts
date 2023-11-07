@@ -7,18 +7,13 @@ const userMenu=[
     },
     {
       name:'Appointments',
-      path:'/appointments',
+      path:'/user/appointments',
       icon:'ri-file-list-line'
     },
     {
       name:'Apply Doctor',
       path:'/applydoctor',
       icon:'ri-hospital-line'
-    },
-    {
-      name:'Profile',
-      path:'/profile',
-      icon:'ri-user-fill'
     },
     {
       name:'Logout',
