@@ -3,10 +3,7 @@
 /client/node_modules
 # Ignore logs
 /logs
-
 # Ignore build artifacts
 /build
-/dist
-/server/dist
 # Ignore environment-specific .env files
 .env
