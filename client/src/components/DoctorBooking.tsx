@@ -17,7 +17,7 @@ const DoctorBooking = () => {
     const [time , setTime] = useState<any>()
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    axios.defaults.withCredentials=true;
+     
     const bookAppointment = async () => {
       try {
         const token = localStorage.getItem('authToken');

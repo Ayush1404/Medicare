@@ -10,7 +10,7 @@ import { hideLoading, showLoading } from '../redux/alertSlice';
 const Login = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
-  axios.defaults.withCredentials=true;
+   
   const onFinish = async (values:{email: string,password:string})=>{
     try{
       dispatch(showLoading())

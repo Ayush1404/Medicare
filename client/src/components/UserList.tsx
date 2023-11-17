@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
 
 const UserList = () => {
-  axios.defaults.withCredentials=true;
+   
   const changeuserstatus = async (userid:string,status:string)=>{
     try {  
       const token = localStorage.getItem('authToken');

@@ -17,11 +17,10 @@ const corsOptions: CorsOptions = {
   origin: 'https://medicare-client-glzri8kxk-ayushs-projects-935f2cc5.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
-  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+
 
 app.use(express.json());
 app.use('/api/user', userRouter);

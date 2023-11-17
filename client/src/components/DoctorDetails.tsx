@@ -15,7 +15,7 @@ const DoctorDeails = () => {
     const [doctor,setDoctor] = useState<Doctor>();
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    axios.defaults.withCredentials=true;
+     
     useEffect(() => {
         
         const getDoctorData = async () => {

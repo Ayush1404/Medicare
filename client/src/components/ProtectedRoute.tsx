@@ -18,7 +18,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const userData = useSelector((state: any) => state.userData);
   const [autharized, setAutharized] = useState(false);
   const dispatch = useDispatch();
-  axios.defaults.withCredentials=true;
+   
   useEffect(() => {
     const getUserData = async () => {
       try {

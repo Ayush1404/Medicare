@@ -7,7 +7,7 @@ import { hideLoading, showLoading } from '../redux/alertSlice';
 const DoctorList = () => {
   const [doctors,setDoctors] = useState([]);
   const dispatch = useDispatch();
-  axios.defaults.withCredentials=true;
+   
   const changedoctorstatus = async (userid:string,status:string)=>{
     try {  
       const token = localStorage.getItem('authToken');
