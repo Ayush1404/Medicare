@@ -10,7 +10,7 @@
     ],
     "headers": [
       {
-        "source": "/dist/(.*)",
+        "source": "dist/(.*)",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
           { "key": "Access-Control-Allow-Origin", "value": "https://medicare-client-febmwkry5-ayushs-projects-935f2cc5.vercel.app" },
