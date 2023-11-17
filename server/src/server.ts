@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 7000;
 
-/* // CORS configuration options
+// CORS configuration options
 const corsOptions: CorsOptions = {
   origin: '*', // Allow requests from any origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -21,7 +21,7 @@ const corsOptions: CorsOptions = {
 
 
 app.use(cors(corsOptions));
- */
+
 
 app.use(express.json());
 app.use('/api/user', userRouter);
