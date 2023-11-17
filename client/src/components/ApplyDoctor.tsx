@@ -25,6 +25,7 @@ const ApplyDoctor = () => {
     const userData = useSelector((state: any) => state.userData);
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    axios.defaults.withCredentials=true;
     const onFinish =async (values:ApplyDoctorInput)=>{
         try{
             const formated_timings =[ 

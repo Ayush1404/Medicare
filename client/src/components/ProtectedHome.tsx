@@ -30,6 +30,7 @@ const ProtectedHome = () => {
   const [approvedDoctors,setApprovedDoctors] = useState<Doctor[]>([]);
   const userData = useSelector((state: any) => state.userData);
   const dispatch = useDispatch();
+  axios.defaults.withCredentials=true;
   useEffect(() => {
     const getDoctors = async () => {
       try {

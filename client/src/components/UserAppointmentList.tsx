@@ -7,6 +7,7 @@ import { hideLoading, showLoading } from '../redux/alertSlice';
 const UserAppointmentList = () => {
   const [appointments,setAppointments] = useState([]);
   const dispatch = useDispatch();
+  axios.defaults.withCredentials=true;
   const cancelAppointment = async (appointment_id:string)=>{
     try {  
       const token = localStorage.getItem('authToken');

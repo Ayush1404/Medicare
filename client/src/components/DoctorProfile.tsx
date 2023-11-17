@@ -23,6 +23,7 @@ type ApplyDoctorInput={
 const DoctorProfile = () => {
   const dispatch = useDispatch();
   const doctorData = useSelector((state: any) => state.doctorData);
+  axios.defaults.withCredentials=true;
   console.log(doctorData)
     const navigate = useNavigate()
     

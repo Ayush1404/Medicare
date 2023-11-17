@@ -23,6 +23,7 @@ const Notifications = () => {
     
     const dispatch=useDispatch();
     const navigate = useNavigate();
+    axios.defaults.withCredentials=true;
     const [unseenNotifications,setUnseenNotifications] = useState([]);
     const [seenNotifications,setSeenNotifications] = useState([]);
     const markAllRead=async()=>{
