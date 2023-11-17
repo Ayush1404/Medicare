@@ -14,7 +14,7 @@ const port = process.env.PORT || 7000;
 
 // CORS configuration options
 const corsOptions: CorsOptions = {
-  origin: '*',
+  origin: 'https://medicare-client-glzri8kxk-ayushs-projects-935f2cc5.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
