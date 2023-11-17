@@ -3,14 +3,9 @@
     "builds": [
       { "src": "dist/server.js", "use": "@vercel/node" }
     ],
-    "routes": [
-      { "src": "/(.*)", 
-      "dest": "dist/server.js" 
-    }
-    ],
     "headers": [
       {
-        "source": "dist/(.*)",
+        "source": "/(.*)",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
           { "key": "Access-Control-Allow-Origin", "value": "https://medicare-client-febmwkry5-ayushs-projects-935f2cc5.vercel.app" },
