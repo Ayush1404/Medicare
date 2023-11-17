@@ -29,7 +29,7 @@ const Notifications = () => {
       try {  
         const token = localStorage.getItem('authToken');
         dispatch(showLoading())
-        const response = await axios.get('http://localhost:7000/api/user/notifications/markallread', {
+        const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/notifications/markallread', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -60,7 +60,7 @@ const Notifications = () => {
         const token = localStorage.getItem('authToken');
         console.log(message)
         dispatch(showLoading())
-        const response = await axios.post('http://localhost:7000/api/user/notifications/markoneread', {
+        const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/notifications/markoneread', {
         notification_message: message,
       }, {
         headers: {
@@ -92,7 +92,7 @@ const Notifications = () => {
       try {  
         const token = localStorage.getItem('authToken');
         dispatch(showLoading())
-        const response = await axios.get('http://localhost:7000/api/user/notifications/deleteall', {
+        const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/notifications/deleteall', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -117,7 +117,7 @@ const Notifications = () => {
       try {  
         const token = localStorage.getItem('authToken');
         dispatch(showLoading())
-        const response = await axios.post('http://localhost:7000/api/user/notifications/deleteone',{
+        const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/notifications/deleteone',{
           notification_message: message,
         }, {
           headers: {
@@ -145,7 +145,7 @@ const Notifications = () => {
           try {  
             const token = localStorage.getItem('authToken');
             dispatch(showLoading())
-            const response = await axios.get('http://localhost:7000/api/user/notifications', {
+            const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/notifications', {
               headers: {
                 'Authorization': `Bearer ${token}`,
               },

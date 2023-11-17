@@ -11,7 +11,7 @@ const DoctorAppointmentList = () => {
     try {  
       const token = localStorage.getItem('authToken');
       dispatch(showLoading())
-      const response = await axios.post('http://localhost:7000/api/doctor/changeappointmentstatus', {
+      const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/doctor/changeappointmentstatus', {
         doctorid:doctorid,
         appointment_id:appointment_id,
         status:status,
@@ -87,7 +87,7 @@ const DoctorAppointmentList = () => {
         try {
           const token = localStorage.getItem('authToken');
           dispatch(showLoading())
-          const response = await axios.get('http://localhost:7000/api/doctor/getallappointments', {
+          const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/doctor/getallappointments', {
             headers: {
               'Authorization': `Bearer ${token}`,
             },

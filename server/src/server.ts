@@ -1,21 +1,34 @@
 import express from 'express';
-require('dotenv').config();
-import cors from 'cors';
-require('./config/dbConfig')
-import {router as userRouter} from './routes/userRoutes'
-import {router as adminRouter} from './routes/adminRoutes'  ;
-import {router as doctorRouter} from './routes/doctorRoutes'
-import {router as testRouter} from './routes/testRoute'
+import cors, { CorsOptions } from 'cors'; // Import CorsOptions for type checking
+import dotenv from 'dotenv';
+import './config/dbConfig';
+import { router as userRouter } from './routes/userRoutes';
+import { router as adminRouter } from './routes/adminRoutes';
+import { router as doctorRouter } from './routes/doctorRoutes';
+import { router as testRouter } from './routes/testRoute';
+
+dotenv.config();
+
 const app = express();
-const port = process.env.PORT || 7000 ;
-app.use(cors());
+const port = process.env.PORT || 7000;
+
+// CORS configuration options
+const corsOptions: CorsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 app.use(express.json());
+app.use('/api/user', userRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/doctor', doctorRouter);
+app.get('/', testRouter);
 
-
-app.use('/api/user',userRouter)
-app.use('/api/admin',adminRouter)
-app.use('/api/doctor',doctorRouter)
-app.get('/',testRouter)
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

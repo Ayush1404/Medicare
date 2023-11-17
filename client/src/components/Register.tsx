@@ -11,7 +11,7 @@ const Register = () => {
   const onFinish = async (values:{name:string ,email: string,password:string})=>{
     try{
       dispatch(showLoading())
-      const response = await axios.post('http://localhost:7000/api/user/register',values);
+      const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/register',values);
       dispatch(hideLoading())
       if(response?.data.success)
       {

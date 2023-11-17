@@ -21,7 +21,7 @@ const DoctorDeails = () => {
           try {
             const token = localStorage.getItem('authToken');
             dispatch(showLoading())
-            const response = await axios.post('http://localhost:7000/api/doctor/getbyid',{
+            const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/doctor/getbyid',{
                 doctorid:params.doctorid
             }, {
               headers: {

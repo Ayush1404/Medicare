@@ -35,7 +35,7 @@ const ProtectedHome = () => {
       try {
         const token = localStorage.getItem('authToken');
         dispatch(showLoading())
-        const response = await axios.get('http://localhost:7000/api/user/getallapproveddoctors', {
+        const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/getallapproveddoctors', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
