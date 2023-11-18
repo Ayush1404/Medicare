@@ -12,7 +12,7 @@ const DoctorList = () => {
     try {  
       const token = localStorage.getItem('authToken');
       dispatch(showLoading())
-      const response = await axios.post(' medicare-lyart.vercel.app/api/admin/changedoctorstatus', {
+      const response = await axios.post('https://medicare-lyart.vercel.app/api/admin/changedoctorstatus', {
       userid:userid,
       status:status
     },{
@@ -42,7 +42,7 @@ const DoctorList = () => {
         try {
           const token = localStorage.getItem('authToken');
           dispatch(showLoading())
-          const response = await axios.get(' medicare-lyart.vercel.app/api/admin/getalldoctors', {
+          const response = await axios.get('https://medicare-lyart.vercel.app/api/admin/getalldoctors', {
             headers: {
               'Authorization': `Bearer ${token}`,
             },

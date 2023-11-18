@@ -14,7 +14,7 @@ const Login = () => {
   const onFinish = async (values:{email: string,password:string})=>{
     try{
       dispatch(showLoading())
-      const response = await axios.post(' medicare-lyart.vercel.app/api/user/login',values);
+      const response = await axios.post('https://medicare-lyart.vercel.app/api/user/login',values);
       dispatch(hideLoading())
       console.log(response);
       if(response?.data.success)

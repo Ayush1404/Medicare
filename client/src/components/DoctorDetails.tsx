@@ -22,7 +22,7 @@ const DoctorDeails = () => {
           try {
             const token = localStorage.getItem('authToken');
             dispatch(showLoading())
-            const response = await axios.post(' medicare-lyart.vercel.app/api/doctor/getbyid',{
+            const response = await axios.post('https://medicare-lyart.vercel.app/api/doctor/getbyid',{
                 doctorid:params.doctorid
             }, {
               headers: {

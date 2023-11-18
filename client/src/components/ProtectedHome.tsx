@@ -36,7 +36,7 @@ const ProtectedHome = () => {
       try {
         const token = localStorage.getItem('authToken');
         dispatch(showLoading())
-        const response = await axios.get(' medicare-lyart.vercel.app/api/user/getallapproveddoctors', {
+        const response = await axios.get('https://medicare-lyart.vercel.app/api/user/getallapproveddoctors', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
