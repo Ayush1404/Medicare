@@ -13,14 +13,12 @@ router.post('/register',async (req:Request,res:Response)=>{
         const {error} =registerValidate (req.body);
         if(error)
             return res.status(400).send({message: error.details[0].message , success:false} );
-        
         let user = await userModel.findOne({name:req.body.name})
         if(user)
             return res.status(409).send({message: "User with given name already exists" , success:false});
         user = await userModel.findOne({email:req.body.email})
         if(user)
             return res.status(409).send({message: "User with given email already exists", success:false});
-        
         const salt=await bcrypt.genSalt(Number(process.env.SALT))
         const hashPassword=await bcrypt.hash(req.body.password,salt)
 

@@ -1,13 +1,14 @@
 import express from 'express';
 import cors, { CorsOptions } from 'cors'; // Import CorsOptions for type checking
 import dotenv from 'dotenv';
+dotenv.config();
 import './config/dbConfig';
 import { router as userRouter } from './routes/userRoutes';
 import { router as adminRouter } from './routes/adminRoutes';
 import { router as doctorRouter } from './routes/doctorRoutes';
 import { router as testRouter } from './routes/testRoute';
 
-dotenv.config();
+
 
 const app = express();
 const port = process.env.PORT || 7000;
