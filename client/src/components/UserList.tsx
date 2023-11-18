@@ -11,7 +11,7 @@ const UserList = () => {
     try {  
       const token = localStorage.getItem('authToken');
       dispatch(showLoading())
-      const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/admin/changeuserstatus', {
+      const response = await axios.post(' medicare-lyart.vercel.app/api/admin/changeuserstatus', {
       userid:userid,
       status:status
     },{
@@ -43,7 +43,7 @@ const UserList = () => {
           try {
             const token = localStorage.getItem('authToken');
             dispatch(showLoading())
-            const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/admin/getallusers', {
+            const response = await axios.get(' medicare-lyart.vercel.app/api/admin/getallusers', {
               headers: {
                 'Authorization': `Bearer ${token}`,
               },

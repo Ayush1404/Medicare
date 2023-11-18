@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const getUserData = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/me', {
+        const response = await axios.get(' medicare-lyart.vercel.app/api/user/me', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -60,7 +60,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const getDoctorData = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await axios.get('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/doctor/me', {
+        const response = await axios.get(' medicare-lyart.vercel.app/api/doctor/me', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

@@ -37,7 +37,7 @@ const DoctorProfile = () => {
             values ={...values , timings:formated_timings}
             dispatch(showLoading())
             const token = localStorage.getItem('authToken');
-            const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/doctor/updateprofile',values, {
+            const response = await axios.post(' medicare-lyart.vercel.app/api/doctor/updateprofile',values, {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                 },

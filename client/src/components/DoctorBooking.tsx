@@ -22,7 +22,7 @@ const DoctorBooking = () => {
       try {
         const token = localStorage.getItem('authToken');
         dispatch(showLoading())
-        const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/doctor/bookappointment',{
+        const response = await axios.post(' medicare-lyart.vercel.app/api/doctor/bookappointment',{
             doctorid:params.doctorid,
             userid:userData.id,
             doctorInfo:doctor,
@@ -60,7 +60,7 @@ const DoctorBooking = () => {
           try {
             const token = localStorage.getItem('authToken');
             dispatch(showLoading())
-            const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/doctor/getbyid',{
+            const response = await axios.post(' medicare-lyart.vercel.app/api/doctor/getbyid',{
                 doctorid:params.doctorid
             }, {
               headers: {

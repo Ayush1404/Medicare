@@ -37,7 +37,7 @@ const ApplyDoctor = () => {
             console.log(values)
             dispatch(showLoading())
             const token = localStorage.getItem('authToken');
-            const response = await axios.post('https://medicare-j7yz0h3oc-ayushs-projects-935f2cc5.vercel.app/api/user/applydoctor',values, {
+            const response = await axios.post(' medicare-lyart.vercel.app/api/user/applydoctor',values, {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                 },
