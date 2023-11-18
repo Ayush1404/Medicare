@@ -12,14 +12,7 @@
         "headers": [
           { "key": "Access-Control-Allow-Origin", "value": "*" }
         ]
-      },
-      {
-        "source": "https://medicare-3s3mw9h3b-ayushs-projects-935f2cc5.vercel.app/(.*)",
-        "headers": [
-          { "key": "Access-Control-Allow-Origin", "value": "*" }
-        ]
       }  
-  ]
-    
+     ]
   }
   
